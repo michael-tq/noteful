@@ -17,10 +17,8 @@ class App extends Component {
   }
 
   filterNote(folderId) {
-    // console.log(this.state.notes[0].id, folderId);
     const item = this.state.notes.filter(note => note.folderId === folderId);
     console.log(item)
-    
   }
 
   componentDidMount() {
@@ -28,14 +26,8 @@ class App extends Component {
     console.log(this.state)
   }
   render() {
-    // console.log(Array.isArray(this.state.notes));
-    // let note = this.state.notes.map((item, index) => 
-    //   <li key={index}>{item}</li>)
     return (
       <main className="App">
-        {/* <ul>
-        {note}
-      </ul> */}
         <Route
           exact path='/'
           component={ HomePage }
@@ -48,7 +40,7 @@ class App extends Component {
           component={ NoteId }
         />
         <Route 
-          path='/note/:FolderId'
+          path='/folder/:FolderId'
           component={ FolderId }
 
         />

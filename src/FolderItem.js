@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 class Item extends Component {
-  click() {
-    console.log(this.props.item.id);
-    this.props.filterNote(this.props.item.id);
-  }
+  // click() {
+  //   console.log(this.props.item.id);
+  //   console.log(this.props.filterNote(this.props.item.id));
+  // }
   render() {
-    const folderId = this.props.item.id;
+    const folderdid = this.props.item.id;
     return (      
       <div>
-        <NavLink to={`/folder/${folderId}`} className="noteItem">{this.props.item.name}</NavLink>
+        {/* <NavLink to={`/folder/${folderId}`} className="noteItem">{this.props.item.name}</NavLink> */}
+        {/* <Link to='/folder/:FolderId'>{this.props.item.name}</Link> */}
+        <Link to={`/folder/${folderId}`} folderid={folderid} className="noteItem">{this.props.item.name}</Link>
+        
       </div>
     )
   }

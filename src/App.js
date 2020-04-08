@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import NoteId from './NoteId';
+import NotesPreview from './NotesPreview';
 import HomePage from './HomePage';
 import FolderId from './FolderId';
 import data from './dummy-store';
 import FolderItem from './FolderItem';
+import NotePage from './NotePage';
 
 class App extends Component {
   constructor(props) {
@@ -13,37 +14,64 @@ class App extends Component {
       notes: [],
       folders: []
     };
-    this.filterNote = this.filterNote.bind(this)
+    // this.filterNote = this.filterNote.bind(this)
   }
 
-  filterNote(folderId) {
-    const item = this.state.notes.filter(note => note.folderId === folderId);
-    console.log(item)
-  }
+  // filterNote(folderId) {
+  //   console.log('qwewerwet')
+  //   const item = this.state.notes.filter(note => note.folderId === folderId);
+  //   console.log(item)
+  // }
 
   componentDidMount() {
     this.setState({ notes: data.notes, folders: data.folders });
-    console.log(this.state)
+    // console.log(this.state, 'sfd')
   }
+
   render() {
     return (
       <main className="App">
         <Route
           exact path='/'
-          component={ HomePage }
+          render={() =>
+            <HomePage
+              notes={this.state.notes}
+            />
+          }
         />
-      {this.state.folders.map((item, key) => 
-        <FolderItem item={item} key={item.id} filterNote={this.filterNote} />
-      )}
         <Route
-          path='/note/:NoteId'
-          component={ NoteId }
+          exact path='/Homepage'
+          render={() =>
+            <HomePage
+              notes={this.state.notes}
+            />
+          }
         />
-        <Route 
+        <Route
+          path='/note/:NotesPreview'
+          // component={NotePage}
+          render={(routerProps) =>
+            <NotePage
+              notes={this.state.notes}
+              routerProps={routerProps}
+            />
+          }
+        />
+        <Route
           path='/folder/:FolderId'
-          component={ FolderId }
-
+          render={(routerProps) =>
+            <FolderId
+              routerProps={routerProps}
+              notes={this.state.notes}
+            />
+          }
         />
+        <div className="folders">
+          {this.state.folders.map((item, key) =>
+            // <FolderItem item={item} key={item.id} filterNote={this.filterNote} />
+            <FolderItem item={item} key={item.id} />
+          )}
+        </div>
       </main>
     );
   }
